@@ -59,7 +59,12 @@ pip install pipenv --user
 
 ## Installing Python Packages
 
-`WORK IN PROGRESS`
+```shell
+git clone https://github.com/ExistentialRobotics/robotics-workshop.git
+cd robotics-workshop
+pipenv install
+pipenv shell
+```
 
 
 
