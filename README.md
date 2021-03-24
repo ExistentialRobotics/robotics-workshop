@@ -1,4 +1,4 @@
-# Robotic Workshop #
+# Robotics Workshop #
 
 This repository contains the installation instructions for required software and scripts of the workshop.
 
