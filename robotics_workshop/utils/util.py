@@ -3,7 +3,7 @@ import os, cv2
 
 
 def read_data():
-    file_address = os.path.abspath(os.path.join("", os.pardir)) + "/data/"
+    file_address = os.path.abspath(os.path.join("", "robotics_workshop")) + "/data/"
     ranges = np.load(file_address + 'ranges.npy', allow_pickle=True)
     angles = np.load(file_address + 'angles.npy', allow_pickle=True)
     poses = np.load(file_address + 'poses.npy', allow_pickle=True)
@@ -11,14 +11,14 @@ def read_data():
 
 
 def read_velocity_data():
-    file_address = os.path.abspath(os.path.join("", os.pardir)) + "/data/"
+    file_address = os.path.abspath(os.path.join("", "robotics_workshop")) + "/data/"
     v = np.load(file_address + 'linear_velocities.npy', allow_pickle=True)
     omega = np.load(file_address + 'angular_velocities.npy', allow_pickle=True)
     return v, omega
 
 
 def load_map(xmin, xmax, ymin, ymax, resolution):
-    file_address = os.path.abspath(os.path.join("", os.pardir)) + "/data/"
+    file_address = os.path.abspath(os.path.join("", "robotics_workshop")) + "/data/"
     occ_map = cv2.imread(file_address + 'occ_map.png', 0)
 
     MAP = {}
