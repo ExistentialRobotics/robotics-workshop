@@ -62,7 +62,7 @@ pip install pipenv --user
 ```shell
 git clone https://github.com/ExistentialRobotics/robotics-workshop.git
 cd robotics-workshop
-pipenv install
+pipenv install --skip-lock
 pipenv shell
 ```
 
