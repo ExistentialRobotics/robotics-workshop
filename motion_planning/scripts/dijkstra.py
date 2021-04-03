@@ -143,7 +143,7 @@ def main():
     # [v, w] in edges[u] means a directed edge from u to v with weight w
     edges = {
         0: [[1, 4], [2, 2]], 
-        1: [[1, 1], [3, 1], [5, 10]],
+        1: [[1, 1], [2, 1], [3, 1], [5, 10]],
         2: [[4, 3]],
         3: [[5, 2]],
         4: [[5, 2], [6, 10]],
