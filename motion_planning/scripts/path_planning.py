@@ -1,40 +1,20 @@
 import heapq
 import numpy as np
 import matplotlib.pyplot as plt
+from window import WindowBase
 
-class Window:
+class Window(WindowBase):
     """
     Window to visualize path planning
     """
     def __init__(self, title):
-        self.fig = None
-        self.imshow_obj = None
-
-        # Create the figure and axes
-        self.fig, self.ax = plt.subplots(figsize=(10, 10))
+        super().__init__(title)
 
         # Create plot objects
         self.prev_path_obj, = self.ax.plot([], [], 'r.')
         self.path_obj, = self.ax.plot([], [], 'b.')
         self.pos_obj, = self.ax.plot([], [], 'gs')
         self.goal_obj, = self.ax.plot([], [], 'ms')
-
-        # Show the env name in the window title
-        self.fig.canvas.set_window_title(title)
-
-        # Turn off x/y axis numbering/ticks
-        self.ax.xaxis.set_ticks_position('none')
-        self.ax.yaxis.set_ticks_position('none')
-        _ = self.ax.set_xticklabels([])
-        _ = self.ax.set_yticklabels([])
-
-        # Flag indicating the window was closed
-        self.closed = False
-
-        def close_handler(evt):
-            self.closed = True
-
-        self.fig.canvas.mpl_connect('close_event', close_handler)
 
     def show_img(self, img, prev_path, path, pos, goal):
         """
@@ -64,27 +44,6 @@ class Window:
         # This is needed for interactive mode to work properly
         plt.pause(0.01)
 
-    def show(self, block=True):
-        """
-        Show the window, and start an event loop
-        """
-
-        # If not blocking, trigger interactive mode
-        if not block:
-            plt.ion()
-
-        # Show the plot
-        # In non-interative mode, this enters the matplotlib event loop
-        # In interactive mode, this call does not block
-        plt.show()
-
-    def close(self):
-        """
-        Close the window
-        """
-
-        plt.close()
-        self.closed = True
 
 class Grid:
     # using rc coord, not cartesian xy

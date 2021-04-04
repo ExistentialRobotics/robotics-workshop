@@ -1,6 +1,7 @@
 import heapq
 import matplotlib.pyplot as plt
 import networkx as nx
+from window import WindowBase
 
 
 # node positions for visualization
@@ -14,30 +15,13 @@ position = {
     6: (4, -1)
 }
 
-class Window:
-    """
-    Window to visualize Dijkstra
-    """
+class Window(WindowBase):
     def __init__(self, title):
-        self.fig = None
-        self.imshow_obj = None
-
-        # Create the figure and axes
-        self.fig, self.ax = plt.subplots()
-
-        # Show the env name in the window title
-        self.fig.canvas.set_window_title(title)
-
+        super().__init__(title)
+        
         # Set window margin to see all nodes
-        self.ax.margins(0.12)
-
-        # Flag indicating the window was closed
-        self.closed = False
-
-        def close_handler(evt):
-            self.closed = True
-
-        self.fig.canvas.mpl_connect('close_event', close_handler)
+        self.ax.set_xlim(-0.5, 4.5)
+        self.ax.set_ylim(-1.5, 1.5)
 
     def show_graph(self, G):
         """
@@ -56,27 +40,6 @@ class Window:
         # This is needed for interactive mode to work properly
         plt.pause(1.0)
 
-    def show(self, block=True):
-        """
-        Show the window, and start an event loop
-        """
-
-        # If not blocking, trigger interactive mode
-        if not block:
-            plt.ion()
-
-        # Show the plot
-        # In non-interative mode, this enters the matplotlib event loop
-        # In interactive mode, this call does not block
-        plt.show()
-
-    def close(self):
-        """
-        Close the window
-        """
-
-        plt.close()
-        self.closed = True
 
 def process_graph(edges, CLOSED, OPEN, dist, u):
     """Builds a networkx graph for visualization"""

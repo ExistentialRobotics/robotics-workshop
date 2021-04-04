@@ -1,6 +1,59 @@
 import heapq
 import numpy as np 
 import matplotlib.pyplot as plt
+from window import WindowBase
+
+IDX_TO_COLOR = {
+    0: np.array([255, 255, 255]),       # unexplored
+    1: np.array([0, 0, 0]),             # wall
+    2: np.array([0, 0, 255]),           # explored
+    3: np.array([0, 255, 0]),           # exploring
+    4: np.array([255, 0, 0]),           # current node / shortest path
+    5: np.array([112, 39, 195]),        # start / goal
+}
+
+class Window(WindowBase):
+    """
+    Window to visualize A*
+    """ 
+    def __init__(self, title):
+        super().__init__(title)
+
+    def show_img(self, img):
+        """
+        Show an image or update the image being shown
+        """
+
+        # Show the first image of the environment
+        if self.imshow_obj is None:
+            self.imshow_obj = self.ax.imshow(img)
+
+        self.imshow_obj.set_data(img)
+        self.fig.canvas.draw()
+
+        # Let matplotlib process UI events
+        # This is needed for interactive mode to work properly
+        plt.pause(0.01)
+
+
+def process_grid(grid, CLOSED, OPEN, dist, current, start, goal, path=None):
+    img = [[IDX_TO_COLOR[0] for _ in range(grid.height)] for _ in range(grid.width)]
+
+    for x, y in grid.walls:
+        img[x][y] = IDX_TO_COLOR[1]
+    for x, y in OPEN:
+        img[x][y] = IDX_TO_COLOR[3]
+    for x, y in CLOSED:
+        img[x][y] = IDX_TO_COLOR[2]
+    img[current[0]][current[1]] = IDX_TO_COLOR[4]
+    if path is not None:
+        for x, y in path:
+            img[x][y] = IDX_TO_COLOR[4]
+    img[start[0]][start[1]] = IDX_TO_COLOR[5]
+    img[goal[0]][goal[1]] = IDX_TO_COLOR[5]
+
+    img = np.array(img).transpose(1, 0, 2)
+    return img
 
 class Grid:
     def __init__(self, width, height):
@@ -78,99 +131,6 @@ def reconstruct_path(parent, node):
     path.reverse()
     return path
 
-IDX_TO_COLOR = {
-    0: np.array([255, 255, 255]),       # unexplored
-    1: np.array([0, 0, 0]),             # wall
-    2: np.array([0, 0, 255]),           # explored
-    3: np.array([0, 255, 0]),           # exploring
-    4: np.array([255, 0, 0]),           # current node / shortest path
-    5: np.array([112, 39, 195]),        # start / goal
-}
-
-class Window:
-    """
-    Window to visualize A*
-    """
-    def __init__(self, title):
-        self.fig = None
-        self.imshow_obj = None
-
-        # Create the figure and axes
-        self.fig, self.ax = plt.subplots()
-
-        # Show the env name in the window title
-        self.fig.canvas.set_window_title(title)
-
-        # Turn off x/y axis numbering/ticks
-        self.ax.xaxis.set_ticks_position('none')
-        self.ax.yaxis.set_ticks_position('none')
-        _ = self.ax.set_xticklabels([])
-        _ = self.ax.set_yticklabels([])
-
-        # Flag indicating the window was closed
-        self.closed = False
-
-        def close_handler(evt):
-            self.closed = True
-
-        self.fig.canvas.mpl_connect('close_event', close_handler)
-
-    def show_img(self, img):
-        """
-        Show an image or update the image being shown
-        """
-
-        # Show the first image of the environment
-        if self.imshow_obj is None:
-            self.imshow_obj = self.ax.imshow(img)
-
-        self.imshow_obj.set_data(img)
-        self.fig.canvas.draw()
-
-        # Let matplotlib process UI events
-        # This is needed for interactive mode to work properly
-        plt.pause(0.01)
-
-    def show(self, block=True):
-        """
-        Show the window, and start an event loop
-        """
-
-        # If not blocking, trigger interactive mode
-        if not block:
-            plt.ion()
-
-        # Show the plot
-        # In non-interative mode, this enters the matplotlib event loop
-        # In interactive mode, this call does not block
-        plt.show()
-
-    def close(self):
-        """
-        Close the window
-        """
-
-        plt.close()
-        self.closed = True
-
-def process_grid(grid, CLOSED, OPEN, dist, current, start, goal, path=None):
-    img = [[IDX_TO_COLOR[0] for _ in range(grid.height)] for _ in range(grid.width)]
-
-    for x, y in grid.walls:
-        img[x][y] = IDX_TO_COLOR[1]
-    for x, y in OPEN:
-        img[x][y] = IDX_TO_COLOR[3]
-    for x, y in CLOSED:
-        img[x][y] = IDX_TO_COLOR[2]
-    img[current[0]][current[1]] = IDX_TO_COLOR[4]
-    if path is not None:
-        for x, y in path:
-            img[x][y] = IDX_TO_COLOR[4]
-    img[start[0]][start[1]] = IDX_TO_COLOR[5]
-    img[goal[0]][goal[1]] = IDX_TO_COLOR[5]
-
-    img = np.array(img).transpose(1, 0, 2)
-    return img
 
 def main():
     grid = Grid(30, 20)
