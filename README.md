@@ -9,9 +9,11 @@ Please visit the [wiki page](https://github.com/ExistentialRobotics/robotics-wor
 ### Slides and Recordings
 
 * Localization and Mapping:
+  + [Wiki](https://github.com/ExistentialRobotics/robotics-workshop/wiki/Localization-and-Mapping)
   + [Slides](https://drive.google.com/file/d/1SNbLO_JxYmhhlZDoNOztgVAga11boOpv/view?usp=sharing)
-  + [Recordings](https://drive.google.com/file/d/1Q6VUDrLEF6tXTbQSwidgjfnYQPERNu_U/view?usp=sharing)
+  + [Recording](https://drive.google.com/file/d/1Q6VUDrLEF6tXTbQSwidgjfnYQPERNu_U/view?usp=sharing)
 
 * Planning:
+  + [Wiki](https://github.com/ExistentialRobotics/robotics-workshop/wiki/Motion-Planning)
   + [Slides](https://docs.google.com/presentation/d/1suhyZSuhL6OzJimihyCJ607Ac8g7yJq8QE-nNGlhYZw/edit?usp=sharing)
-  + Recordings (coming soon!)
+  + Recording (coming soon!)
