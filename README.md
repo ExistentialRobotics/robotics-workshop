@@ -13,5 +13,5 @@ Please visit the wiki page for installation instructions and the list of demos.
   + [Recordings](https://drive.google.com/file/d/1Q6VUDrLEF6tXTbQSwidgjfnYQPERNu_U/view?usp=sharing)
 
 * Planning:
-  + Slides (coming soon!)
+  + [Slides](https://docs.google.com/presentation/d/1suhyZSuhL6OzJimihyCJ607Ac8g7yJq8QE-nNGlhYZw/edit?usp=sharing)
   + Recordings (coming soon!)
