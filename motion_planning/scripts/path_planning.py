@@ -32,10 +32,10 @@ class Window(WindowBase):
             prev_path_y, prev_path_x = zip(*prev_path)
             self.prev_path_obj.set_data(prev_path_x, prev_path_y)
         if len(path) == 0:
-            self.prev_path_obj.set_data([], [])
+            self.path_obj.set_data([], [])
         else:
             path_y, path_x = zip(*path)
-            self.prev_path_obj.set_data(path_x, path_y)
+            self.path_obj.set_data(path_x, path_y)
         self.pos_obj.set_data(pos[1], pos[0])
         self.goal_obj.set_data(goal[1], goal[0])
         self.fig.canvas.draw()
@@ -67,7 +67,8 @@ class Grid:
             self.observed_grid[x, y] = 1
 
         self.observed = self.observed.union(observed)
-        self.frontier = (self.frontier - observed).union(frontier)    # order matters
+        self.frontier = self.frontier.union(frontier)
+        self.frontier = self.frontier.difference(self.observed)
 
     def get_frontier_and_observed(self):
         return self.frontier, self.observed
@@ -159,7 +160,10 @@ class Lidar:
             if detected_obs[i] == 0: # no obstacle along this ray
                 frontier.add((x_idx[i,-1], y_idx[i,-1]))
                 free.update([(x_idx[i,j], y_idx[i,j]) for j in range(x_idx.shape[1])])
-                observed.update([(x_idx[i,j], y_idx[i,j]) for j in range(x_idx.shape[1])])
+                observed.update([
+                    (x_idx[i,j], y_idx[i,j]) for j in range(x_idx.shape[1])
+                    if (x_idx[i,j], y_idx[i,j]) != (x_idx[i,-1], y_idx[i,-1])
+                ])
             else:
                 occupied.add((x_idx[i, detected_obs[i]], y_idx[i, detected_obs[i]]))
                 free.update([(x_idx[i,j], y_idx[i,j]) for j in range(detected_obs[i])])
@@ -177,7 +181,7 @@ def reconstruct_path(parent, node):
     path.reverse()
     return path
 
-def a_star(grid, start, goal, eps=5):
+def a_star(grid, start, goal, eps=1):
     
     # Initialize set for explored nodes
     CLOSED = set()
