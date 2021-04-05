@@ -4,7 +4,7 @@ This repository contains the logistics for the Robotics Workshop.
 
 ### Installation and Demos
 
-Please visit the wiki page for installation instructions and the list of demos.
+Please visit the [wiki page](https://github.com/ExistentialRobotics/robotics-workshop/wiki/Getting-started) for installation instructions and the list of demos.
 
 ### Slides and Recordings
 
