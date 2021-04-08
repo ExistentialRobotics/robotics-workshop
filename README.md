@@ -16,4 +16,4 @@ Please visit the [wiki page](https://github.com/ExistentialRobotics/robotics-wor
 * Planning:
   + [Wiki](https://github.com/ExistentialRobotics/robotics-workshop/wiki/Motion-Planning)
   + [Slides](https://docs.google.com/presentation/d/1suhyZSuhL6OzJimihyCJ607Ac8g7yJq8QE-nNGlhYZw/edit?usp=sharing)
-  + Recording (coming soon!)
+  + [Recording](https://drive.google.com/file/d/1E8wGRl_-jc-OfoD_3EUfWV7UnF4PF0hU/view?usp=sharing)
