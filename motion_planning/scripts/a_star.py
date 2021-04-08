@@ -1,4 +1,5 @@
 import heapq
+import argparse
 import numpy as np 
 import matplotlib.pyplot as plt
 from window import WindowBase
@@ -76,7 +77,7 @@ def heuristic(a, b):
     """L1 norm (Manhattan distance) between a and b"""
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
-def astar(grid, start, goal, eps=5):
+def astar(grid, start, goal, eps=1):
 
     # Initialize set for explored nodes
     CLOSED = set()
@@ -133,6 +134,12 @@ def reconstruct_path(parent, node):
 
 
 def main():
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--eps', type=float, default=1.0, 
+        help="Multiplier for heuristic function")    
+    args = parser.parse_args()
+
     grid = Grid(30, 20)
     walls = [(x, 5) for x in range(15, 20)] + [(x, 15) for x in range(15, 20)] + [(20, y) for y in range(5, 16)]
     grid.add_walls(walls)
@@ -140,7 +147,7 @@ def main():
     start = (5, 10)
     goal = (25, 10)
 
-    astar(grid, start, goal)
+    astar(grid, start, goal, args.eps)
 
 if __name__ == '__main__':
     main()
